@@ -2291,9 +2291,6 @@ name = "gnn"
 version = "0.1.0"
 dependencies = [
  "burn",
- "bytemuck",
- "cubecl",
- "derive-new",
  "log",
  "serde",
 ]

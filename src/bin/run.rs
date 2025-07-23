@@ -1,15 +1,13 @@
 use burn::{
     backend::wgpu::WgpuRuntime,
-    tensor::{Distribution, Tensor, Tolerance},
+    tensor::Tensor,
 };
 use gnn::{
-    AutodiffBackend, Backend, 
     Graph, GraphNeuralNetwork, GraphNeuralNetworkConfig, NodeFeatures,
-    matmul_add_relu_custom, matmul_add_relu_reference, // Keep original functions for comparison
 };
 
 /// Demonstrate GNN inference for street-level house price prediction
-fn gnn_inference<B: Backend>(device: &B::Device) {
+fn gnn_inference<B: burn::tensor::backend::Backend>(device: &B::Device) {
     println!("=== Graph Neural Network Inference Demo ===");
     
     // Create a sample street network
@@ -102,28 +100,8 @@ fn gnn_inference<B: Backend>(device: &B::Device) {
     println!("\n=== GNN Demo Complete ===");
 }
 
-/// Original kernel demo (keeping for comparison)
-fn original_kernel_demo<B: Backend>(device: &B::Device) {
-    println!("\n=== Original Custom Kernel Demo ===");
-    
-    let lhs = Tensor::<B, 3>::random([1, 32, 32], Distribution::Default, device);
-    let rhs = Tensor::random([32, 32, 32], Distribution::Default, device);
-    let bias = Tensor::random([32, 32, 32], Distribution::Default, device);
-
-    let reference = matmul_add_relu_reference(lhs.clone(), rhs.clone(), bias.clone())
-        .into_data()
-        .convert::<f32>();
-    let custom = matmul_add_relu_custom(lhs, rhs, bias)
-        .into_data()
-        .convert::<f32>();
-
-    reference.assert_approx_eq::<f32>(&custom, Tolerance::default());
-
-    println!("✓ Custom kernel matches reference implementation");
-}
-
-/// GNN autodiff demo (simplified version of original autodiff demo)
-fn gnn_autodiff<B: AutodiffBackend>(device: &B::Device) {
+/// GNN autodiff demo
+fn gnn_autodiff<B: burn::tensor::backend::AutodiffBackend>(device: &B::Device) {
     println!("\n=== GNN Autodiff Demo ===");
     
     // Create a graph with gradient tracking
@@ -164,9 +142,6 @@ fn main() {
     
     // GNN autodiff demonstration  
     gnn_autodiff::<MyAutodiffBackend>(&device);
-    
-    // Original kernel demo for comparison
-    original_kernel_demo::<MyBackend>(&device);
     
     println!("\n🏠 Graph Neural Network for Street-Level House Price Prediction");
     println!("   Based on the research paper: 'Cities as Graphs'");

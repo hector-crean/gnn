@@ -1,10 +1,9 @@
 use burn::{
-    module::{Module, Param},
+    module::Module,
     nn::{Linear, LinearConfig},
     tensor::{Tensor, activation, backend::Backend},
     config::Config,
 };
-use serde::{Deserialize, Serialize};
 
 /// Represents node features for a street network
 /// Each node (street segment) has various urban features

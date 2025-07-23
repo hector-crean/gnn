@@ -5,6 +5,19 @@ A Rust implementation of Graph Neural Networks (GNNs) for urban house price pred
 ![Street Network as Graph](assets/graphic_01.png)
 *Figure 1: Representation of city neighborhoods as graphs, where streets are nodes and edges represent connections between streets. Each node contains a feature vector encoding street-level information.*
 
+![Graph Neural Network Architecture](assets/graphic_02.png)
+*Figure 2: Graph Neural Network layers enable each node to learn from adjacent nodes through message passing. Information is transformed iteratively to create rich node representations.*
+
+![GNN Message Passing](assets/graphic_03.png)
+*Figure 3: For each node, the GNN collects information from adjacent nodes and transforms it to generate new node representations. This process captures neighborhood effects crucial for house price prediction.*
+
+![GNN Workflow](assets/graphic_04.png)
+*Figure 4: Complete GNN workflow for street-level house price prediction. Street networks are translated into graphs, processed through GNN layers to learn neighborhood representations, then reduced to final price predictions.*
+
+![Urban Analysis Results](assets/graphic_05.jpeg)
+*Figure 5: Example visualization of GNN-based urban analysis showing how the model learns to distinguish different neighborhood characteristics and price patterns across a city street network.*
+
+
 ## 🏗️ Architecture
 
 This implementation uses the [Burn](https://burn.dev/) machine learning framework with WGPU backend for GPU acceleration. The core components include:
@@ -17,8 +30,7 @@ This implementation uses the [Burn](https://burn.dev/) machine learning framewor
   - Commercial/residential/industrial area ratios
   - Lot dimensions and characteristics
 
-![Graph Neural Network Architecture](assets/graphic_02.png)
-*Figure 2: Graph Neural Network layers enable each node to learn from adjacent nodes through message passing. Information is transformed iteratively to create rich node representations.*
+
 
 ### 2. Graph Convolutional Layers
 - Implements the GCN approach from Kipf & Welling (2017)
@@ -30,8 +42,7 @@ This implementation uses the [Burn](https://burn.dev/) machine learning framewor
 - Uses softmax output for probability distributions
 - Includes autodiff support for training
 
-![GNN Message Passing](assets/graphic_03.png)
-*Figure 3: For each node, the GNN collects information from adjacent nodes and transforms it to generate new node representations. This process captures neighborhood effects crucial for house price prediction.*
+
 
 ## 🎯 Key Features
 
@@ -55,8 +66,6 @@ This will execute three main demonstrations:
 2. **GNN Autodiff Demo**: Demonstrates forward and backward passes
 3. **Original Kernel Demo**: Compares custom vs reference implementations
 
-![GNN Workflow](assets/graphic_04.png)
-*Figure 4: Complete GNN workflow for street-level house price prediction. Street networks are translated into graphs, processed through GNN layers to learn neighborhood representations, then reduced to final price predictions.*
 
 ## 📊 Sample Output
 
@@ -111,8 +120,6 @@ where:
 - `W^(l)` are learnable parameters
 - `σ` is an activation function (ReLU)
 
-![Urban Analysis Results](assets/graphic_05.jpeg)
-*Figure 5: Example visualization of GNN-based urban analysis showing how the model learns to distinguish different neighborhood characteristics and price patterns across a city street network.*
 
 ## 🏙️ Real-World Applications
 
